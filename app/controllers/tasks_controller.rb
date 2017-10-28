@@ -53,4 +53,11 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:content, :status)
   end
+  
+  def correct_user
+    @micropost = current_user.microposts.find_by(id: params[:id])
+    unless @micropost
+      redirect_to root_url
+    end
+  end
 end
